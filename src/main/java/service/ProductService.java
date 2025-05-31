@@ -52,6 +52,26 @@ public class ProductService {
         return categories;
     }
 
+    public int getCategoryIdByName(String name) {
+        int id = -1;
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement("SELECT id FROM category WHERE name = ?")) {
+            stmt.setString(1, name);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("id");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    public List<Product> getProductsByCategoryName(String name) {
+        int categoryId = getCategoryIdByName(name);
+        return getProductsByCategory(categoryId);
+    }
+
     public List<Product> getProductsByCategory(int categoryId) {
         List<Product> products = new ArrayList<>();
         String query = "SELECT * FROM products WHERE category_id = ?";

@@ -25,7 +25,7 @@ public class ProductServlet extends HttpServlet {
 
         List<Product> products;
         if (category != null && !category.isEmpty()) {
-            products = productService.getProductsByCategory(category);
+            products = productService.getProductsByCategoryName(category);
         } else {
             products = productService.getAllProducts();
         }
