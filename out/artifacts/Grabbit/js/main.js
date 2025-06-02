@@ -4,12 +4,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const categoryCards = document.querySelectorAll(".category-card");
     const productGrid = document.getElementById("product-list");
     const searchBox = document.querySelector(".search-box");
-    const productSection = document.getElementById("products");
     const scrollTopBtn = document.getElementById("scrollTopBtn");
-
+    const loginBtn = document.getElementById("loginBtn");
+    const productSection = document.getElementById("products");
+    const welcomeMsg = document.getElementById("welcomeMsg");
+    const user = JSON.parse(localStorage.getItem("user"));
     let allProducts = [];
 
-    // Only rendering remains here (fetching is in fetchProducts.js)
+    // Handle login/logout UI
+    function updateLoginButton() {
+        const user = JSON.parse(localStorage.getItem("user"));
+
+        if (user) {
+            loginBtn.textContent = "Logout";
+            loginBtn.onclick = () => {
+                localStorage.removeItem("user");
+                updateLoginButton(); // Update button to say "Login"
+            };
+        } else {
+            loginBtn.textContent = "Login";
+            loginBtn.onclick = () => {
+                window.location.href = "/Grabbit/login.html";
+            };
+        }
+    }
+
+    updateLoginButton(); // Call once on load
+
+    // Render products
     function renderProducts(products) {
         productGrid.innerHTML = "";
 
@@ -23,30 +45,17 @@ document.addEventListener("DOMContentLoaded", () => {
             card.className = "product-card";
             card.style.animationDelay = `${index * 0.1}s`;
             card.innerHTML = `
+                <img src="${prod.imageUrl}" alt="${prod.name}">
                 <h3>${prod.name}</h3>
                 <p>₹${prod.price}</p>
+                <p>${prod.description}</p>
                 <button>Add to Cart</button>
             `;
             productGrid.appendChild(card);
         });
     }
 
-    // Remove this (category click logic handled in fetchProducts.js):
-    /*
-    categoryCards.forEach(card => {
-        card.addEventListener("click", () => {
-            const categoryName = card.dataset.category;
-            allProducts = dummyProducts[categoryName] || [];
-            renderProducts(allProducts);
-
-            setTimeout(() => {
-                productSection.scrollIntoView({ behavior: "smooth", block: "start" });
-            }, 150);
-        });
-    });
-    */
-
-    // Keep this for search filtering
+    // Search filtering
     searchBox.addEventListener("input", () => {
         const query = searchBox.value.trim().toLowerCase();
 
@@ -71,7 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    // Optionally expose renderProducts to global scope so fetchProducts.js can use it
+    // Expose to global scope so fetchProducts.js can call setProducts
     window.setProducts = function (products) {
         allProducts = products;
         renderProducts(products);

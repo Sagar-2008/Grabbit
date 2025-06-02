@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grabbit - Grocery at your doorstep</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo">GrabbIt</div>
+        <input type="text" class="search-box" placeholder="Search for products..." />
+        <div class="nav-actions">
+            <button id="loginBtn">Login</button>
+            <button id="cartBtn">Cart (0)</button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Fastest delivery in your town 🚴‍♂️</h1>
+        <p>Groceries, snacks & essentials — all in minutes!</p>
+    </section>
+
+    <section class="categories">
+        <h2>Shop by Category</h2>
+        <div class="category-grid">
+            <div class="category-card" data-category="Fruits & Vegetables">Fruits & Vegetables</div>
+            <div class="category-card" data-category="Beverages">Beverages</div>
+            <div class="category-card" data-category="Dairy & Bakery">Dairy & Bakery</div>
+            <div class="category-card" data-category="Snacks & Branded Foods">Snacks & Branded Foods</div>
+            <div class="category-card" data-category="Household Items">Household Items</div>
+        </div>
+    </section>
+
+    <section id="products" class="products-section">
+        <h2>Products</h2>
+        <div id="product-list">
+            <p class="placeholder-msg">Please, select a category.</p>
+        </div>
+    </section>
+    <button id="scrollTopBtn" title="Go to top">⬆</button>
+    <script src="js/main.js" defer></script>
+    <script src="js/fetchproducts.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Grabbit | Register</title>
+    <link rel="stylesheet" href="css/register.css">
+</head>
+
+<body>
+    <div class="register-container">
+        <h2>Create a Grabbit Account</h2>
+        <form method="post" action="register">
+            <input type="text" name="username" placeholder="Choose a username" required>
+            <input type="password" name="password" placeholder="Create a password" required>
+            <button type="submit">Register</button>
+        </form>
+
+        <div class="message">
+            <script>
+                const params = new URLSearchParams(window.location.search);
+                if (params.get("status") === "fail") {
+                    document.write("<p style='color: red;'>Registration failed. Try another username.</p>");
+                }
+                if (params.get("status") === "success") {
+                    document.write("<p style='color: green;'>Registered successfully. You can now <a href='login.html'>log in</a>.</p>");
+                }
+            </script>
+        </div>
+
+        <p>Already have an account? <a href="login.html">Login</a></p>
+        <script src="js/auth.js"></script>
+    </div>
+</body>
+
+</html>

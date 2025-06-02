@@ -2,12 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const categoryCards = document.querySelectorAll(".category-card");
     const productSection = document.getElementById("products");
 
-    // Category card click listener → fetch from servlet
     categoryCards.forEach(card => {
         card.addEventListener("click", () => {
             const categoryName = card.dataset.category;
-
-            fetch(`/ProductServlet?category=${encodeURIComponent(categoryName)}`)
+            fetch(`/Grabbit/ProductServlet?category=${encodeURIComponent(categoryName)}`)            
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -15,11 +13,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     return response.json();
                 })
                 .then(products => {
-                    // use global renderer from main.js
+                    console.log("Products fetched successfully:", products);
                     if (typeof window.setProducts === "function") {
                         window.setProducts(products);
 
-                        // Scroll to product section
                         setTimeout(() => {
                             productSection.scrollIntoView({
                                 behavior: "smooth",

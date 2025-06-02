@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grabbit Admin Panel</title>
+    <link rel="stylesheet" href="css/admin.css" />
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="logo">Grabbit Admin</div>
+        <button id="logoutBtn">Logout</button>
+    </header>
+
+    <main class="admin-container">
+        <section class="product-management">
+            <h2>Manage Products</h2>
+
+            <form id="productForm">
+                <input type="hidden" id="productId" />
+                <input type="text" id="productName" placeholder="Product Name" required />
+                <input type="number" id="productPrice" placeholder="Price (₹)" required />
+                <textarea id="productDescription" placeholder="Description" required></textarea>
+                <input type="text" id="productImageUrl" placeholder="Image URL" required />
+                <select id="productCategory" required>
+                    <option value="">-- Select Category --</option>
+                </select>
+
+                <button type="submit">Add Product</button>
+            </form>
+            
+            <h3>All Products</h3>
+            <label for="categoryFilter">Filter by Category:</label>
+            <select id="categoryFilter">
+                <option value="all">All</option>
+            </select>
+            <div id="productTableContainer"></div>            
+        </section>
+    </main>
+
+    <script src="js/admin.js" defer></script>
+</body>
+
+</html>
