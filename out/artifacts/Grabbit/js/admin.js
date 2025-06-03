@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     logoutBtn.addEventListener("click", () => {
         localStorage.removeItem("user");
-        window.location.href = "/Grabbit/login.html";
+        window.location.href = "/Grabbit";
     });
 
     // Fetch categories and populate dropdowns
@@ -43,7 +43,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Load all products
     async function loadProducts() {
         try {
-            const res = await fetch("/Grabbit/products");
+            const res = await fetch("/Grabbit/admin/products");
             allProducts = await res.json();
             renderTable(allProducts);
         } catch (err) {

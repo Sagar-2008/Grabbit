@@ -10,25 +10,23 @@ import java.util.*;
 public class ProductService {
     public List<Product> getAllProducts() {
         List<Product> products = new ArrayList<>();
-
         String query = "SELECT * FROM products";
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
 
             while (rs.next()) {
-                Product p = new Product(
+                products.add(new Product(
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("description"),
                         rs.getDouble("price"),
                         rs.getString("image_url"),
                         rs.getInt("category_id")
-                );
-                products.add(p);
+                ));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("🚫 Error fetching all products: " + e.getMessage());
         }
         return products;
     }
@@ -54,15 +52,17 @@ public class ProductService {
 
     public int getCategoryIdByName(String name) {
         int id = -1;
+        String query = "SELECT id FROM category WHERE name = ?";
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT id FROM category WHERE name = ?")) {
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
             stmt.setString(1, name);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 id = rs.getInt("id");
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println("🚫 Error fetching category ID by name: " + e.getMessage());
         }
         return id;
     }
@@ -106,7 +106,6 @@ public class ProductService {
             String searchTerm = "%" + keyword + "%";
             stmt.setString(1, searchTerm);
             stmt.setString(2, searchTerm);
-
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -138,7 +137,7 @@ public class ProductService {
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.out.println("Error adding product: " + e.getMessage());
+            System.out.println("🚫 Error adding product: " + e.getMessage());
             return false;
         }
     }
@@ -157,7 +156,7 @@ public class ProductService {
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.out.println("Error updating product: " + e.getMessage());
+            System.out.println("🚫 Error updating product: " + e.getMessage());
             return false;
         }
     }
@@ -170,7 +169,7 @@ public class ProductService {
             stmt.setInt(1, id);
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
-            System.out.println("Error deleting product: " + e.getMessage());
+            System.out.println("🚫 Error deleting product: " + e.getMessage());
             return false;
         }
     }

@@ -30,7 +30,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (response.ok) {
                 localStorage.setItem("user", JSON.stringify(data.user));
-                window.location.href = "/Grabbit";
+
+                // Check user role and redirect accordingly
+                if (data.user.role === "admin") {
+                    window.location.href = "/Grabbit/admin.html";
+                } else {
+                    window.location.href = "/Grabbit";
+                }
             } else {
                 alert(data.message || "Login failed!");
             }

@@ -1,79 +1,102 @@
 package ui;
 
-import jakarta.servlet.*;
+import com.google.gson.Gson;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import model.Product;
 import service.ProductService;
 
-import java.io.*;
-import java.math.BigDecimal;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 
 @WebServlet("/admin/products")
 public class AdminProductServlet extends HttpServlet {
-    private ProductService productService;
+
+    private final ProductService productService = new ProductService();
+    private final Gson gson = new Gson();
 
     @Override
-    public void init() throws ServletException {
-        productService = new ProductService(); // Assumes default constructor uses DBConnection
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        List<Product> products = productService.getAllProducts();  // Or filtered by admin
+        resp.setContentType("application/json");
+        PrintWriter out = resp.getWriter();
+        Gson gson = new Gson();  // Assuming you imported com.google.gson.*
+        out.print(gson.toJson(products));
+        out.flush();
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        String action = req.getParameter("action");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String action = request.getParameter("action");
+
+        if (action == null) {
+            response.getWriter().write("Missing action parameter");
+            return;
+        }
 
         switch (action) {
-            case "add" -> handleAddProduct(req, resp);
-            case "update" -> handleUpdateProduct(req, resp);
-            case "delete" -> handleDeleteProduct(req, resp);
-            default -> {
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                resp.getWriter().write("Invalid action.");
-            }
+            case "add" -> handleAdd(request, response);
+            case "update" -> handleUpdate(request, response);
+            case "delete" -> handleDelete(request, response);
+            default -> response.getWriter().write("Invalid action: " + action);
         }
     }
 
-    private void handleAddProduct(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private void handleAdd(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+        String imageUrl = request.getParameter("imageUrl");
+        double price = parseDouble(request.getParameter("price"));
+        int categoryId = parseInt(request.getParameter("categoryId"));
+
+        boolean success = productService.addProduct(name, description, price, imageUrl, categoryId);
+        response.getWriter().write(success ? "Product added successfully" : "Failed to add product");
+    }
+
+    private void handleUpdate(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String description = request.getParameter("description");
+        String imageUrl = request.getParameter("imageUrl");
+        double price = parseDouble(request.getParameter("price"));
+        int categoryId = parseInt(request.getParameter("categoryId"));
+
+        if (id <= 0) {
+            response.getWriter().write("Invalid product ID");
+            return;
+        }
+
+        boolean success = productService.updateProduct(id, name, description, price, imageUrl, categoryId);
+        response.getWriter().write(success ? "Product updated successfully" : "Failed to update product");
+    }
+
+    private void handleDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = parseInt(request.getParameter("id"));
+
+        if (id <= 0) {
+            response.getWriter().write("Invalid product ID");
+            return;
+        }
+
+        boolean success = productService.deleteProduct(id);
+        response.getWriter().write(success ? "Product deleted successfully" : "Failed to delete product");
+    }
+
+    private int parseInt(String value) {
         try {
-            Product product = extractProduct(req, false);
-            boolean success = productService.addProduct(product.getName(),product.getDescription(),product.getPrice(),product.getImageUrl(),product.getCategoryId());
-            resp.getWriter().write(success ? "Product added" : "Failed to add");
+            return Integer.parseInt(value);
         } catch (Exception e) {
-            resp.setStatus(500);
-            resp.getWriter().write("Error: " + e.getMessage());
+            return -1;
         }
     }
 
-    private void handleUpdateProduct(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    private double parseDouble(String value) {
         try {
-            Product product = extractProduct(req, true);
-            boolean success = productService.updateProduct(product.getId(),product.getName(),product.getDescription(),product.getPrice(),product.getImageUrl(),product.getCategoryId());
-            resp.getWriter().write(success ? "Product updated" : "Failed to update");
+            return Double.parseDouble(value);
         } catch (Exception e) {
-            resp.setStatus(500);
-            resp.getWriter().write("Error: " + e.getMessage());
+            return 0.0;
         }
-    }
-
-    private void handleDeleteProduct(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        try {
-            int id = Integer.parseInt(req.getParameter("id"));
-            boolean success = productService.deleteProduct(id);
-            resp.getWriter().write(success ? "Product deleted" : "Failed to delete");
-        } catch (Exception e) {
-            resp.setStatus(500);
-            resp.getWriter().write("Error: " + e.getMessage());
-        }
-    }
-
-    private Product extractProduct(HttpServletRequest req, boolean includeId) {
-        Product product = new Product();
-        if (includeId) product.setId(Integer.parseInt(req.getParameter("id")));
-        product.setName(req.getParameter("name"));
-        product.setDescription(req.getParameter("description"));
-        product.setPrice(new BigDecimal(req.getParameter("price")));
-        product.setImageUrl(req.getParameter("imageUrl"));
-        product.setCategoryId(Integer.parseInt(req.getParameter("categoryId")));
-        return product;
     }
 }

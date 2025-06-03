@@ -1,6 +1,7 @@
 package service;
 
 import db.DBConnection;
+import model.Category;
 
 import java.sql.*;
 import java.util.*;
@@ -59,17 +60,17 @@ public class CategoryService {
         }
     }
 
-    public List<Map<String, Object>> getAllCategories() {
-        List<Map<String, Object>> categories = new ArrayList<>();
+    public List<Category> getAllCategories() {
+        List<Category> categories = new ArrayList<>();
         String query = "SELECT * FROM category";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query);
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                Map<String, Object> cat = new HashMap<>();
-                cat.put("id", rs.getInt("id"));
-                cat.put("name", rs.getString("name"));
+                Category cat = new Category();
+                cat.setId(rs.getInt("id"));
+                cat.setName(rs.getString("name"));
                 categories.add(cat);
             }
         } catch (SQLException e) {

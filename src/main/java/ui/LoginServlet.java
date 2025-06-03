@@ -36,6 +36,11 @@ public class LoginServlet extends HttpServlet {
             User user = userService.loginUser(username, password);
 
             if (user != null) {
+                // Store user info in session
+                HttpSession session = request.getSession();
+                session.setAttribute("user", user);
+
+                // Respond with JSON containing user info
                 JsonObject resJson = new JsonObject();
                 JsonObject userJson = new JsonObject();
                 userJson.addProperty("username", user.getUsername());
