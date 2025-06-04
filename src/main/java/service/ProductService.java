@@ -173,4 +173,28 @@ public class ProductService {
             return false;
         }
     }
+
+    public Product getProductById(int id) {
+        String query = "SELECT * FROM products WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return new Product(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("description"),
+                        rs.getDouble("price"),
+                        rs.getString("image_url"),
+                        rs.getInt("category_id")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("🚫 Error fetching product by ID: " + e.getMessage());
+        }
+        return null;
+    }
 }

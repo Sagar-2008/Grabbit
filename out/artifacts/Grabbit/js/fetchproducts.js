@@ -5,7 +5,14 @@ document.addEventListener("DOMContentLoaded", () => {
     categoryCards.forEach(card => {
         card.addEventListener("click", () => {
             const categoryName = card.dataset.category;
-            fetch(`/Grabbit/ProductServlet?category=${encodeURIComponent(categoryName)}`)            
+            if (!categoryName) return;
+
+            // Optional: Add loading animation
+            if (typeof window.showLoading === "function") {
+                window.showLoading();
+            }
+
+            fetch(`/Grabbit/ProductServlet?category=${encodeURIComponent(categoryName)}`)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error(`HTTP error! status: ${response.status}`);
@@ -14,22 +21,29 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
                 .then(products => {
                     console.log("Products fetched successfully:", products);
+
                     if (typeof window.setProducts === "function") {
                         window.setProducts(products);
 
+                        // Smooth scroll to products
                         setTimeout(() => {
                             productSection.scrollIntoView({
                                 behavior: "smooth",
                                 block: "start"
                             });
-                        }, 100);
+                        }, 200);
                     } else {
                         console.error("setProducts not defined in main.js");
                     }
                 })
                 .catch(error => {
                     console.error("Failed to fetch products:", error);
-                    alert("Something went wrong while loading products.");
+                    document.getElementById("product-list").innerHTML = `
+                        <div class="placeholder-msg" style="color: red;">
+                            <h3>Failed to load products</h3>
+                            <p>Please try again in a few minutes.</p>
+                        </div>
+                    `;
                 });
         });
     });

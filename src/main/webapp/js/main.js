@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const productGrid = document.getElementById("product-list");
     const searchBox = document.querySelector(".search-box");
     const loginBtn = document.getElementById("loginBtn");
+    const cartBtn = document.getElementById("cartBtn");
     const productSection = document.getElementById("products");
-    const welcomeMsg = document.getElementById("welcomeMsg");
     const user = JSON.parse(localStorage.getItem("user"));
     let allProducts = [];
     let isScrolling = false;
@@ -123,6 +123,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 100);
     }
 
+    function cartRedirection() {
+        cartBtn.onclick = () => {
+            if (user) {
+                setTimeout(() => {
+                    window.location.href = "/Grabbit/cart.html";
+                }, 150);
+            } else {
+                cartBtn.style.transform = 'scale(0.8)';
+                window.alert("Please login to view your cart.");
+            }
+        }
+    }
+    cartRedirection();
     updateLoginButton();
 
     // Enhanced product rendering with staggered animations
@@ -137,10 +150,11 @@ document.addEventListener("DOMContentLoaded", () => {
             if (products.length === 0) {
                 productGrid.innerHTML = `
                     <div class="placeholder-msg" style="animation: fadeInUp 0.6s ease-out;">
-                        <h3>No products found</h3>
-                        <p>Try searching for something else or select a different category</p>
+                    <h3>No products found</h3>
+                    <p>Try searching for something else or select a different category</p>
                     </div>
                 `;
+
                 // Fade in
                 productGrid.style.opacity = '1';
                 productGrid.style.transform = 'translateY(0)';
@@ -220,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Add to cart function with animations
     window.addToCart = function (product) {
-        // Add visual feedback
+        // Animate
         const button = event.target.closest('.add-to-cart-btn');
         button.style.transform = 'scale(0.9)';
         button.style.background = 'var(--success)';
@@ -234,9 +248,21 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 1000);
         }, 150);
 
-        // Add cart logic here
-        console.log('Added to cart:', product);
-    };
+        // ✅ Store product in session cart
+        let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+
+        // Check if already exists, if so increment quantity
+        const existing = cart.find(item => item.product.id === product.id);
+        if (existing) {
+            existing.quantity += 1;
+        } else {
+            cart.push({ product, quantity: 1 });
+        }
+
+        sessionStorage.setItem("cart", JSON.stringify(cart));
+
+        console.log('Cart updated:', cart);
+    };    
 
     // Intersection Observer for scroll animations
     const observerOptions = {

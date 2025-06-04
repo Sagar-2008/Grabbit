@@ -1,10 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Grabbit - Cart</title>
+    <link rel="stylesheet" href="css/cart.css">
 </head>
-<body>
 
+<body>
+    <header class="navbar">
+        <div class="logo">Grabbit</div>
+        <a href="index.html">Home</a>
+        <button id="logoutBtn">Logout</button>
+    </header>
+
+    <main class="cart-container">
+        <h2>Your Cart</h2>
+        <div id="cartContainer"></div>
+        <div class="cart-summary">
+            <p id="totalAmount">Total: ₹0.00</p>
+            <button id="checkoutBtn">Checkout</button>
+        </div>
+    </main>
+
+    <script src="js/cart.js" defer></script>
 </body>
+
 </html>

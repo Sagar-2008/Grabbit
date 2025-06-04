@@ -18,7 +18,6 @@ public class ProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("Request received");
         String category = request.getParameter("category");
 
         response.setContentType("application/json");
