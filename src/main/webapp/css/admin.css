@@ -1,4 +1,3 @@
-/* Modern Admin Panel CSS */
 :root {
     --primary-color: #6366f1;
     --primary-hover: #5855eb;
@@ -33,7 +32,6 @@ body {
     min-height: 100vh;
 }
 
-/* Navbar */
 .navbar {
     background: rgba(30, 41, 59, 0.95);
     backdrop-filter: blur(20px);
@@ -79,7 +77,6 @@ body {
     transform: translateY(0);
 }
 
-/* Main Container */
 .admin-container {
     max-width: 1400px;
     margin: 0 auto;
@@ -87,7 +84,6 @@ body {
     gap: 2rem;
 }
 
-/* Product Management Section */
 .product-management {
     background: var(--card-bg);
     border-radius: var(--radius-lg);
@@ -125,7 +121,6 @@ body {
     padding-bottom: 0.5rem;
 }
 
-/* Form Styles */
 #productForm {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -189,7 +184,6 @@ body {
     transform: translateY(0);
 }
 
-/* Filter Section */
 .filter-section {
     display: flex;
     align-items: center;
@@ -223,7 +217,6 @@ body {
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
-/* Product Table Container */
 #productTableContainer {
     background: var(--surface-bg);
     border-radius: var(--radius);
@@ -232,7 +225,6 @@ body {
     box-shadow: var(--shadow);
 }
 
-/* Table Styles (for when table is generated) */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -258,7 +250,6 @@ tr:hover {
     background: rgba(99, 102, 241, 0.05);
 }
 
-/* Placeholder styles for empty states */
 .empty-state {
     text-align: center;
     padding: 4rem 2rem;
@@ -270,7 +261,6 @@ tr:hover {
     margin-bottom: 0.5rem;
 }
 
-/* Loading animations */
 @keyframes pulse {
 
     0%,
@@ -287,7 +277,6 @@ tr:hover {
     animation: pulse 2s infinite;
 }
 
-/* Button variants */
 .btn {
     padding: 0.75rem 1.5rem;
     border-radius: var(--radius);
@@ -320,7 +309,6 @@ tr:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .navbar {
         padding: 1rem;
@@ -374,7 +362,6 @@ tr:hover {
     }
 }
 
-/* Scrollbar Styling */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -392,7 +379,6 @@ tr:hover {
     background: var(--text-muted);
 }
 
-/* Focus visible for accessibility */
 *:focus-visible {
     outline: 2px solid var(--primary-color);
     outline-offset: 2px;

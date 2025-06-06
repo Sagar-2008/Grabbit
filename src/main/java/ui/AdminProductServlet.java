@@ -19,10 +19,10 @@ public class AdminProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        List<Product> products = productService.getAllProducts();  // Or filtered by admin
+        List<Product> products = productService.getAllProducts();
         resp.setContentType("application/json");
         PrintWriter out = resp.getWriter();
-        Gson gson = new Gson();  // Assuming you imported com.google.gson.*
+        Gson gson = new Gson();
         out.print(gson.toJson(products));
         out.flush();
     }

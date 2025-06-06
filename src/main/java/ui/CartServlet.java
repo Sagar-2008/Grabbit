@@ -37,7 +37,6 @@ public class CartServlet extends HttpServlet {
 
         List<CartItem> cart = getCart(req);
 
-        // Check if product already in cart
         Optional<CartItem> existingItemOpt = cart.stream()
                 .filter(item -> item.getProduct().getId() == incomingProduct.getId())
                 .findFirst();
@@ -46,7 +45,6 @@ public class CartServlet extends HttpServlet {
             CartItem existing = existingItemOpt.get();
             existing.setQuantity(existing.getQuantity() + 1);
         } else {
-            // Fetch full product from DB (optional but cleaner)
             Product fullProduct = productService.getProductById(incomingProduct.getId());
             if (fullProduct == null) {
                 resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Product not found");

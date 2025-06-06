@@ -25,10 +25,8 @@ public class RegisterServlet extends HttpServlet {
         boolean success = userService.registerUser(username, password);
 
         if (success) {
-            // Redirect back to register page with success message
             response.sendRedirect("register.html?status=success");
         } else {
-            // Redirect back with failure message
             response.sendRedirect("register.html?status=fail");
         }
     }

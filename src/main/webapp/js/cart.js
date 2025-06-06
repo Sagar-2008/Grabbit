@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // Render cart items
     let totalAmount = 0;
     cartContainer.innerHTML = "";
 
@@ -54,7 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     totalAmountEl.textContent = `₹${totalAmount.toFixed(2)}`;
 
-    // Quantity controls
     cartContainer.addEventListener("click", (e) => {
         const index = parseInt(e.target.dataset.index);
         if (isNaN(index)) return;
@@ -72,10 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         sessionStorage.setItem("cart", JSON.stringify(cart));
-        location.reload(); // quick refresh to re-render
+        location.reload(); 
     });
 
-    // Checkout button click (placeholder)
     checkoutBtn.addEventListener("click", () => {
         alert("Checkout feature coming soon!");
     });

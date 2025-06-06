@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Smooth scroll to top on page load
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
 
     const categoryCards = document.querySelectorAll(".category-card");
@@ -12,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let allProducts = [];
     let isScrolling = false;
 
-    // Smooth scroll utility function
     function smoothScrollTo(element, offset = 100) {
         if (isScrolling) return;
         isScrolling = true;
@@ -46,31 +44,24 @@ document.addEventListener("DOMContentLoaded", () => {
         requestAnimationFrame(animation);
     }
 
-    // Enhanced category card interactions
     categoryCards.forEach((card, index) => {
-        // Add staggered animation on load
         card.style.animationDelay = `${index * 0.1}s`;
 
         card.addEventListener("click", () => {
-            // Remove active class from all cards
             categoryCards.forEach(c => c.classList.remove('active'));
 
-            // Add active class to clicked card
             card.classList.add('active');
 
-            // Add click animation
             card.style.transform = 'scale(0.95)';
             setTimeout(() => {
                 card.style.transform = '';
             }, 150);
 
-            // Smooth scroll to products section with larger offset
             setTimeout(() => {
                 smoothScrollTo(productSection, -45);
             }, 200);
         });
 
-        // Enhanced hover effects
         card.addEventListener('mouseenter', () => {
             if (!card.classList.contains('active')) {
                 card.style.transform = 'translateY(-12px) scale(1.03)';
@@ -84,11 +75,9 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Handle login/logout UI with smooth transitions
     function updateLoginButton() {
         const user = JSON.parse(localStorage.getItem("user"));
 
-        // Add transition effect
         loginBtn.style.transition = 'all 0.3s ease';
         loginBtn.style.transform = 'scale(0.9)';
 
@@ -97,7 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 loginBtn.textContent = "Logout";
                 loginBtn.className = "logout-btn";
                 loginBtn.onclick = () => {
-                    // Add logout animation
                     loginBtn.style.transform = 'scale(0.8)';
                     setTimeout(() => {
                         localStorage.removeItem("user");
@@ -108,7 +96,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 loginBtn.textContent = "Login";
                 loginBtn.className = "login-btn";
                 loginBtn.onclick = () => {
-                    // Add click animation before redirect
                     loginBtn.style.transform = 'scale(0.8)';
                     setTimeout(() => {
                         window.location.href = "/Grabbit/login.html";
@@ -116,7 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 };
             }
 
-            // Restore scale
             setTimeout(() => {
                 loginBtn.style.transform = 'scale(1)';
             }, 100);
@@ -138,9 +124,7 @@ document.addEventListener("DOMContentLoaded", () => {
     cartRedirection();
     updateLoginButton();
 
-    // Enhanced product rendering with staggered animations
     function renderProducts(products) {
-        // Fade out existing products
         productGrid.style.opacity = '0.5';
         productGrid.style.transform = 'translateY(20px)';
 
@@ -155,7 +139,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
                 `;
 
-                // Fade in
                 productGrid.style.opacity = '1';
                 productGrid.style.transform = 'translateY(0)';
                 return;
@@ -179,14 +162,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 productGrid.appendChild(card);
 
-                // Staggered animation
                 setTimeout(() => {
                     card.style.transition = 'all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1)';
                     card.style.opacity = '1';
                     card.style.transform = 'translateY(0)';
                 }, index * 100);
 
-                // Add hover effects to product cards
                 card.addEventListener('mouseenter', () => {
                     card.style.transform = 'translateY(-8px) scale(1.02)';
                 });
@@ -196,27 +177,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             });
 
-            // Fade in the grid
             productGrid.style.opacity = '1';
             productGrid.style.transform = 'translateY(0)';
         }, 200);
     }
 
-    // Enhanced search with debouncing and smooth transitions
     let searchTimeout;
     searchBox.addEventListener("input", (e) => {
         const query = e.target.value.trim().toLowerCase();
 
-        // Add search animation
         searchBox.style.transform = 'scale(1.02)';
         setTimeout(() => {
             searchBox.style.transform = 'scale(1)';
         }, 100);
 
-        // Clear previous timeout
         clearTimeout(searchTimeout);
 
-        // Debounce search
         searchTimeout = setTimeout(() => {
             if (query === "") {
                 renderProducts(allProducts);
@@ -232,9 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 300);
     });
 
-    // Add to cart function with animations
     window.addToCart = function (product) {
-        // Animate
         const button = event.target.closest('.add-to-cart-btn');
         button.style.transform = 'scale(0.9)';
         button.style.background = 'var(--success)';
@@ -248,10 +222,8 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 1000);
         }, 150);
 
-        // ✅ Store product in session cart
         let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
 
-        // Check if already exists, if so increment quantity
         const existing = cart.find(item => item.product.id === product.id);
         if (existing) {
             existing.quantity += 1;
@@ -264,7 +236,6 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log('Cart updated:', cart);
     };    
 
-    // Intersection Observer for scroll animations
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -279,7 +250,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }, observerOptions);
 
-    // Observe sections for scroll animations
     document.querySelectorAll('.categories, .products-section').forEach(section => {
         section.style.opacity = '0';
         section.style.transform = 'translateY(30px)';
@@ -287,30 +257,25 @@ document.addEventListener("DOMContentLoaded", () => {
         observer.observe(section);
     });
 
-    // Enhanced navbar scroll effect
     let lastScrollY = window.scrollY;
     window.addEventListener('scroll', () => {
         const navbar = document.querySelector('.navbar');
         const currentScrollY = window.scrollY;
 
         if (currentScrollY > lastScrollY && currentScrollY > 100) {
-            // Scrolling down
             navbar.style.transform = 'translateY(-100%)';
         } else {
-            // Scrolling up
             navbar.style.transform = 'translateY(0)';
         }
 
         lastScrollY = currentScrollY;
     });
 
-    // Expose to global scope so fetchProducts.js can call setProducts
     window.setProducts = function (products) {
         allProducts = products;
         renderProducts(products);
     };
 
-    // Add loading animation helper
     window.showLoading = function () {
         productGrid.innerHTML = `
             <div class="loading-container">
@@ -320,7 +285,6 @@ document.addEventListener("DOMContentLoaded", () => {
         `;
     };
 
-    // Smooth page transitions
     document.querySelectorAll('a[href^="/"]').forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();

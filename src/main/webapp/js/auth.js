@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const contentType = response.headers.get("content-type");
 
             if (!contentType || !contentType.includes("application/json")) {
-                const errorText = await response.text(); // fallback for HTML error pages
+                const errorText = await response.text(); 
                 throw new Error("Invalid JSON: " + errorText.substring(0, 100));
             }
 

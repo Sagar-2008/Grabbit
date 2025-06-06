@@ -1,4 +1,3 @@
-/* Modern Login Page CSS - Matches Admin Panel Theme */
 :root {
     --primary-color: #6366f1;
     --primary-hover: #5855eb;
@@ -39,7 +38,6 @@ body {
     overflow: hidden;
 }
 
-/* Animated background elements */
 body::before {
     content: '';
     position: absolute;
@@ -65,7 +63,6 @@ body::before {
     }
 }
 
-/* Login Container */
 .login-container {
     background: rgba(30, 41, 59, 0.95);
     backdrop-filter: blur(20px);
@@ -92,7 +89,6 @@ body::before {
     }
 }
 
-/* Gradient border effect */
 .login-container::before {
     content: '';
     position: absolute;
@@ -104,7 +100,6 @@ body::before {
     border-radius: var(--radius-lg) var(--radius-lg) 0 0;
 }
 
-/* Title */
 .login-container h2 {
     font-size: 2rem;
     font-weight: 700;
@@ -129,7 +124,6 @@ body::before {
     border-radius: 2px;
 }
 
-/* Form */
 #loginForm {
     display: flex;
     flex-direction: column;
@@ -137,7 +131,6 @@ body::before {
     margin-bottom: 2rem;
 }
 
-/* Input Fields */
 #loginForm input {
     background: var(--surface-bg);
     border: 2px solid var(--border-color);
@@ -168,7 +161,6 @@ body::before {
     transform: translateY(-1px);
 }
 
-/* Submit Button */
 #loginForm button[type="submit"] {
     background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
     border: none;
@@ -195,7 +187,6 @@ body::before {
     transform: translateY(-1px);
 }
 
-/* Button ripple effect */
 #loginForm button[type="submit"]::before {
     content: '';
     position: absolute;
@@ -214,7 +205,6 @@ body::before {
     height: 300px;
 }
 
-/* Register Link */
 .login-container p {
     text-align: center;
     color: var(--text-secondary);
@@ -249,7 +239,6 @@ body::before {
     width: 100%;
 }
 
-/* Loading state for form submission */
 .loading {
     opacity: 0.7;
     pointer-events: none;
@@ -284,7 +273,6 @@ body::before {
     }
 }
 
-/* Error states */
 .error {
     border-color: var(--danger-color) !important;
     box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
@@ -307,13 +295,11 @@ body::before {
     }
 }
 
-/* Success states */
 .success {
     border-color: var(--secondary-color) !important;
     box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
 }
 
-/* Responsive Design */
 @media (max-width: 480px) {
     body {
         padding: 1rem;
@@ -338,13 +324,11 @@ body::before {
     }
 }
 
-/* Focus visible for accessibility */
 *:focus-visible {
     outline: 2px solid var(--primary-color);
     outline-offset: 2px;
 }
 
-/* Scrollbar Styling */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -362,7 +346,6 @@ body::before {
     background: var(--text-muted);
 }
 
-/* High contrast mode support */
 @media (prefers-contrast: high) {
     :root {
         --border-color: #64748b;
@@ -370,7 +353,6 @@ body::before {
     }
 }
 
-/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
     * {
         animation-duration: 0.01ms !important;

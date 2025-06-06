@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const categoryName = card.dataset.category;
             if (!categoryName) return;
 
-            // Optional: Add loading animation
             if (typeof window.showLoading === "function") {
                 window.showLoading();
             }
@@ -25,7 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (typeof window.setProducts === "function") {
                         window.setProducts(products);
 
-                        // Smooth scroll to products
                         setTimeout(() => {
                             productSection.scrollIntoView({
                                 behavior: "smooth",

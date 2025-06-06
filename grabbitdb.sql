@@ -83,30 +83,6 @@ INSERT INTO products (name, description, price, image_url, category_id) VALUES
                                                                             ('Room Freshener', 'Jasmine air freshener.', 85.00, 'https://via.placeholder.com/180x120?text=Freshener', 5),
                                                                             ('Toilet Paper', 'Pack of 4 rolls.', 70.00, 'https://via.placeholder.com/180x120?text=Toilet+Paper', 5);
 
--- Orders table
-CREATE TABLE IF NOT EXISTS orders (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT,
-    total_amount DOUBLE,
-    order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    status VARCHAR(20) DEFAULT 'Pending',
-    CONSTRAINT fk_user_order FOREIGN KEY (user_id)
-        REFERENCES users(id) ON DELETE SET NULL ON UPDATE CASCADE
-);
-
--- Order Items table
-CREATE TABLE IF NOT EXISTS order_items (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    order_id INT,
-    product_id INT,
-    quantity INT,
-    price DOUBLE,
-    CONSTRAINT fk_order FOREIGN KEY (order_id)
-        REFERENCES orders(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT fk_product FOREIGN KEY (product_id)
-        REFERENCES products(id) ON DELETE SET NULL ON UPDATE CASCADE
-);
-
 -- Update img_url for real image links
 UPDATE products SET image_url = 'https://5.imimg.com/data5/AK/RA/MY-68428614/apple.jpg' WHERE id = 1;
 UPDATE products SET image_url = 'https://theseedcompany.ca/cdn/shop/files/crop_CARR1923_Carrot___Sweetness_Pelleted_Long.png?v=1720113309&width=1024' WHERE id = 2;

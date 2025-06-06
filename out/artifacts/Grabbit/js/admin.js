@@ -18,10 +18,9 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "/Grabbit";
     });
 
-    // Fetch categories and populate dropdowns
     async function fetchCategories() {
         try {
-            const res = await fetch("/Grabbit/categories"); // Assumes you have a CategoryServlet returning JSON
+            const res = await fetch("/Grabbit/categories");
             categories = await res.json();
 
             categories.forEach(cat => {
@@ -40,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Load all products
     async function loadProducts() {
         try {
             const res = await fetch("/Grabbit/admin/products");
@@ -51,7 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Render product table
     function renderTable(products) {
         if (products.length === 0) {
             productTableContainer.innerHTML = "<p>No products available.</p>";
@@ -93,7 +90,6 @@ document.addEventListener("DOMContentLoaded", () => {
         productTableContainer.innerHTML = "";
         productTableContainer.appendChild(table);
 
-        // Add event listeners
         document.querySelectorAll(".editBtn").forEach(btn => {
             btn.addEventListener("click", () => {
                 const product = allProducts.find(p => p.id == btn.dataset.id);
@@ -116,7 +112,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Form submission (add/update)
     productForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
@@ -145,7 +140,6 @@ document.addEventListener("DOMContentLoaded", () => {
         loadProducts();
     });
 
-    // Fill form for editing
     function fillForm(product) {
         productId.value = product.id;
         productName.value = product.name;
@@ -155,7 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
         productCategory.value = product.categoryId;
     }
 
-    // Filter products by selected category
     categoryFilter.addEventListener("change", () => {
         const selected = categoryFilter.value;
         if (selected === "all") {
@@ -166,6 +159,5 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Init
     fetchCategories().then(loadProducts);
 });
