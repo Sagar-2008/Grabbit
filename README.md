@@ -76,18 +76,24 @@ Grabbit/
   Build WAR and deploy to Tomcat
   Access app at: http://localhost:8800/Grabbit
 
+  ---
+  
   ## 📸 Screenshots
-Homepage -
+--Homepage -
 ![Homepage](assets/homepage.png)
-Cart Page -
+--Cart Page -
 ![Cart Page](assets/cart.png)
-Admin Panel -
+--Admin Panel -
 ![Admin Panel](assets/admin.png)
-Download Screen Recording -
+--Download Screen Recording -
 ![Download](https://github.com/Sagar-2008/Grabbit/raw/refs/heads/master/assets/screenrec.mp4)
+
+---
 
 🙌 Acknowledgements
 Inspired by Blinkit. Made with ☕ and lots of enthusiasm.
+
+---
 
 📜 License
 This project is open-source and free to use for educational purposes.
