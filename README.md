@@ -84,7 +84,7 @@ Grabbit/
 
 ---
 
-#art Page -
+#Cart Page -
 ![Cart Page](assets/cart.png)
 
 ---
