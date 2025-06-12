@@ -77,7 +77,7 @@ Grabbit/
   Access app at: http://localhost:8800/Grabbit
 
   ## 📸 Screen Recording
-![Screen Recording](assets/homepage.mp4)
+![Screen Recording](assets/screenrec.mp4)
 
 🙌 Acknowledgements
 Inspired by Blinkit. Made with ☕ and lots of enthusiasm.
