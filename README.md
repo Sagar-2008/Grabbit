@@ -80,22 +80,22 @@ Grabbit/
   
   ## 📸 Screenshots
 #Homepage -
-![Homepage](assets/homepage.png)
+![Homepage](src/main/webapp/assets/homepage.png)
 
 ---
 
 #Cart Page -
-![Cart Page](assets/cart.png)
+![Cart Page](src/main/webapp/assets/cart.png)
 
 ---
 
 #Admin Panel -
-![Admin Panel](assets/admin.png)
+![Admin Panel](src/main/webapp/assets/admin.png)
 
 ---
 
 #Download Screen Recording -
-[Download](https://github.com/Sagar-2008/Grabbit/raw/refs/heads/master/assets/screenrec.mp4)
+[Download](https://github.com/Sagar-2008/Grabbit/raw/refs/heads/master/src/main/webapp/assets/screenrec.mp4)
 
 ---
 
